@@ -1,0 +1,85 @@
+﻿@model List<Entities.BookingStatus>
+
+@{
+    Layout = null;
+    var booking = 0;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DriverRidesPage</title>
+</head>
+<body>
+    <div> 
+        <section>
+            <h3>Waiting</h3>
+            <div>
+                <ul>
+                @for (; booking <  Model.Count; booking++)
+                {
+                    if (Model[booking].Status != (int)Entities.BookingStatusEnum.Waiting)
+                    {
+                        break;
+                    }
+                        <li>
+                        <p>ReqId: <span>@Model[booking].RequestId</span></p>
+                        <p>custId: <span>@Model[booking].UserId</span></p>
+                        <p>@(DateTime.Now - Model[booking].BookingTime) ago</p>
+                        <button>Select</button>
+                        </li>
+                    
+                }
+                    </ul>
+            </div>
+        </section>
+
+        <section>
+            <h3>OnGoing</h3>
+            <div>
+                <ul>
+                    @for (; booking < Model.Count; booking++)
+                    {
+                        if (Model[booking].Status != (int)Entities.BookingStatusEnum.OnGoing)
+                        {
+                            break;
+                        }
+                        <li>
+                            <p>ReqId: <span>@Model[booking].RequestId</span></p>
+                            <p>custId: <span>@Model[booking].UserId</span></p>
+                            <p>Request Time: @(DateTime.Now - Model[booking].BookingTime) ago</p>
+                            <p>PickedUp Time: @(DateTime.Now - Model[booking].PickedUpTime) ago</p>
+                        </li>
+
+                    }
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h3>Completed</h3>
+            <div>
+                <ul>
+                    @for (; booking < Model.Count; booking++)
+                    {
+                        if (Model[booking].Status != (int)Entities.BookingStatusEnum.Completed)
+                        {
+                            break;
+                        }
+                        <li>
+                            <p>ReqId: <span>@Model[booking].RequestId</span></p>
+                            <p>custId: <span>@Model[booking].UserId</span></p>
+                            <p>Request Time: @(DateTime.Now - Model[booking].BookingTime) ago</p>
+                            <p>PickedUp Time: @(DateTime.Now - Model[booking].PickedUpTime) ago</p>
+                            <p>Complete: @(DateTime.Now - Model[booking].CompleteTime) ago</p>
+                        </li>
+
+                    }
+                </ul>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
